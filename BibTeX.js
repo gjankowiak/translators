@@ -226,13 +226,7 @@ var jabref = {
 var alwaysMap = {
 	"|":"{\\textbar}",
 	"<":"{\\textless}",
-	">":"{\\textgreater}",
-	"~":"{\\textasciitilde}",
-	"^":"{\\textasciicircum}",
-	"\\":"{\\textbackslash}",
-	// See http://tex.stackexchange.com/questions/230750/open-brace-in-bibtex-fields/230754
-	"{" : "\\{\\vphantom{\\}}",
-	"}" : "\\vphantom{\\{}\\}"
+	">":"{\\textgreater}"
 };
 
 
@@ -1040,8 +1034,8 @@ function isTitleCase(string) {
 // See http://tex.stackexchange.com/questions/230750/open-brace-in-bibtex-fields/230754
 var vphantomRe = /\\vphantom{\\}}((?:.(?!\\vphantom{\\}}))*)\\vphantom{\\{}/g;
 function escapeSpecialCharacters(str) {
-	var newStr = str.replace(/[|\<\>\~\^\\\{\}]/g, function(c) { return alwaysMap[c] })
-		.replace(/([\#\$\%\&\_])/g, "\\$1");
+	var newStr = str.replace(/[\<\>]/g, function(c) { return alwaysMap[c] })
+		.replace(/([\#\%\&])/g, "\\$1");
 	
 	// We escape each brace in the text by making sure that it has a counterpart,
 	// but sometimes this is overkill if the brace already has a counterpart in
